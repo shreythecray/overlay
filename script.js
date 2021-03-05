@@ -1,7 +1,7 @@
 // Init
 var $ = jQuery;
-var animationTime = 20,
-    days = 7;
+var animationTime = 10,
+    days = 10;
  
 $(document).ready(function(){
 
@@ -34,21 +34,34 @@ $(document).ready(function(){
     };
 
     function timer(totalTime, deadline) {
-        var time = totalTime * 1000;
-        var dayDuration = time / deadline;
-        var actualDay = deadline;
+        //deadline: total number of days we have
+        //total time: total number of seconds we have
+        var time = totalTime * 1000; //convert seconds to milliseconds
+        var dayDuration = time / deadline; //calculates fraction of time per day
+        //var actualDay = deadline; //time counter we are decreasing
+        var actualTime = totalTime;
 
-        var timer = setInterval(countTime, dayDuration);
+        var timer = setInterval(decrementTime, 1000);
 
-        function countTime() {
-            --actualDay;
-            $('.deadline-days .day').text(actualDay);
-
-            if (actualDay == 0) {
+        function decrementTime() {
+            --actualTime;
+            $('.deadline-days .day').text(actualTime);
+            if (actualTime == 0) {
                 clearInterval(timer);
-                $('.deadline-days .day').text(deadline);
+                $('.deadline-days .day').text(totalTime);
             }
         }
+
+        // function countTime() {
+        //     --actualDay;
+        //     $('.deadline-days .day').text(actualDay);
+
+        //     if (actualDay == 0) {
+        //         clearInterval(timer);
+        //         $('.deadline-days .day').text(deadline);
+        //     }
+        // }
+
     }
 
     var deadlineText = function () {
